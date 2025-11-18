@@ -346,6 +346,8 @@ panel_conf(){
     echo "[INFO] (Re)installing composer dependencies..."
     sudo -u www-data -E composer clear-cache
     echo 'running composer install'
+
+    composer config audit.block-insecure false
     composer install --no-dev --optimize-autoloader --no-interaction
 
     if [ $? -ne 0 ]; then
