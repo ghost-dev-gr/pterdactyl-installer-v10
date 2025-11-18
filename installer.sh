@@ -358,8 +358,8 @@ panel_install(){
     cp .env.example .env || { echo "❌ Failed to copy .env file!"; exit 1; }
 
     echo "Installing PHP dependencies..."
-    command composer install --no-dev --optimize-autoloader --no-interaction || { echo "❌ Failed to install PHP dependencies!"; exit 1; }
-
+    command composer install --no-dev --optimize-autoloader --no-interaction --no-audit || { echo "❌ Failed to install PHP dependencies!"; exit 1; }
+    
     echo "Generating application key..."
     php artisan key:generate --force || { echo "❌ Failed to generate application key!"; exit 1; }
 
