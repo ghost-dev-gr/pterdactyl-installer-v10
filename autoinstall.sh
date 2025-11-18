@@ -342,7 +342,6 @@ panel_conf(){
     chmod -R 755 storage bootstrap/cache vendor /var/www/.cache/composer
 
     rm -rf composer.lock vendor/*
-
     echo "[INFO] (Re)installing composer dependencies..."
     sudo -u www-data -E composer clear-cache
     echo 'running composer install'
