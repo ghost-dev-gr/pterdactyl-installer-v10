@@ -346,9 +346,8 @@ panel_conf(){
     sudo -u www-data -E composer clear-cache
     echo 'running composer install'
 
-    
-    COMPOSER_DISABLE_SECURITY_ADVISORIES=1 COMPOSER_ALLOW_SUPERUSER=1 \
-sudo -u www-data -E composer install --no-dev --optimize-autoloader --no-interaction
+    composer config audit.block-insecure false
+    composer install --no-dev --optimize-autoloader --no-interaction
 
 
     if [ $? -ne 0 ]; then
