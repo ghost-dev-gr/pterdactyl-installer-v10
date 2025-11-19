@@ -347,7 +347,9 @@ panel_conf(){
     echo 'running composer install'
 
     
-    composer install --no-dev --optimize-autoloader --no-interaction
+    COMPOSER_DISABLE_SECURITY_ADVISORIES=1 COMPOSER_ALLOW_SUPERUSER=1 \
+sudo -u www-data -E composer install --no-dev --optimize-autoloader --no-interaction
+
 
     if [ $? -ne 0 ]; then
         echo "[ERROR] Composer install failed. Dumping permissions and cache:"
