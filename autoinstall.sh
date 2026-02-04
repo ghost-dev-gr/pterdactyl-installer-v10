@@ -340,7 +340,8 @@ panel_conf(){
     mkdir -p storage bootstrap/cache vendor /var/www/.cache/composer/vcs
     chown -R www-data:www-data /var/www/pterodactyl /var/www/.cache
     chmod -R 755 storage bootstrap/cache vendor /var/www/.cache/composer
-
+    chmod 644 composer.json .env*
+    
     rm -rf composer.lock vendor/*
     echo "[INFO] (Re)installing composer dependencies..."
     sudo -u www-data -E composer clear-cache
