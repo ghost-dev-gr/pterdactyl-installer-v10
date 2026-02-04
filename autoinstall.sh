@@ -340,7 +340,8 @@ panel_conf(){
     mkdir -p storage bootstrap/cache vendor /var/www/.cache/composer/vcs
     chown -R www-data:www-data /var/www/pterodactyl /var/www/.cache
     chmod -R 755 storage bootstrap/cache vendor /var/www/.cache/composer
-    chmod 644 composer.json .env*
+    chown www-data:www-data .env
+    chmod 640 .env
     
     rm -rf composer.lock vendor/*
     echo "[INFO] (Re)installing composer dependencies..."
@@ -348,7 +349,7 @@ panel_conf(){
     echo 'running composer install'
 
     composer config audit.block-insecure false
-    composer install --no-dev --optimize-autoloader --no-interaction
+    composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 
     if [ $? -ne 0 ]; then
@@ -379,6 +380,7 @@ panel_conf(){
 
     echo "[INFO] Generating app key and config cache..."
     sudo -u www-data php artisan key:generate --force
+    sudo -u www-data php artisan package:discover --ansi
 
     echo "[INFO] Running artisan environment setup..."
     sudo -u www-data php artisan p:environment:setup --author="$EMAIL" --url="$appurl" --timezone="CET" --telemetry=false --cache="redis" --session="redis" --queue="redis" --redis-host="localhost" --redis-pass="null" --redis-port="6379" --settings-ui=true
